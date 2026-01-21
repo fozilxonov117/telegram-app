@@ -1,0 +1,72 @@
+.info-badge {
+  background: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 12px 16px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 24px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.badge-icon {
+  font-size: 18px;
+}
+
+.option-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.option-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.option-card:active {
+  transform: scale(0.98);
+  background: var(--bg-secondary);
+}
+
+.option-icon {
+  font-size: 28px;
+  flex-shrink: 0;
+}
+
+.option-content {
+  flex: 1;
+  text-align: left;
+}
+
+.option-content h3 {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 2px;
+}
+
+.option-content p {
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.option-arrow {
+  font-size: 20px;
+  color: var(--text-hint);
+}
+
+.option-check {
+  width: 24px;
+  height: 24px;
+  border: 2px solid var(--border-color);
+  border-radius: 50%;
+}

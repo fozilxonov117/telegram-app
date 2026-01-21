@@ -1,0 +1,35 @@
+.generating-animation {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  margin: 40px auto;
+}
+
+.generating-spinner {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border: 4px solid var(--border-color);
+  border-top-color: var(--primary-color);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+.generating-icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 48px;
+}
+
+.progress-text {
+  text-align: center;
+  color: var(--text-secondary);
+  font-size: 14px;
+  margin-top: 20px;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}

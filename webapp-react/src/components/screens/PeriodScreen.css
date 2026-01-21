@@ -1,0 +1,17 @@
+.breadcrumb {
+  background: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 24px;
+  font-size: 14px;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+.breadcrumb-sep {
+  color: var(--text-hint);
+}

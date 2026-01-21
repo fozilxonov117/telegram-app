@@ -1,0 +1,77 @@
+.welcome-section {
+  text-align: center;
+  padding: 40px 20px;
+}
+
+.welcome-icon {
+  font-size: 64px;
+  margin-bottom: 20px;
+  animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.welcome-section h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+  color: var(--text-primary);
+}
+
+.welcome-section p {
+  color: var(--text-secondary);
+  font-size: 15px;
+}
+
+.action-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.action-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: var(--shadow);
+}
+
+.action-card:active {
+  transform: scale(0.98);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+}
+
+.card-icon {
+  font-size: 36px;
+  flex-shrink: 0;
+}
+
+.card-content {
+  flex: 1;
+  text-align: left;
+}
+
+.card-content h3 {
+  font-size: 17px;
+  font-weight: 600;
+  margin-bottom: 4px;
+  color: var(--text-primary);
+}
+
+.card-content p {
+  font-size: 14px;
+  color: var(--text-secondary);
+}
+
+.card-arrow {
+  font-size: 24px;
+  color: var(--text-hint);
+}

@@ -1,0 +1,52 @@
+.success-animation {
+  text-align: center;
+  margin: 40px 0;
+}
+
+.success-checkmark {
+  display: inline-block;
+  animation: scaleIn 0.5s ease-out;
+}
+
+@keyframes scaleIn {
+  from {
+    transform: scale(0);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.report-info {
+  background: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 24px;
+}
+
+.report-info-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.report-info-item:last-child {
+  border-bottom: none;
+}
+
+.report-info-label {
+  color: var(--text-secondary);
+  font-size: 14px;
+}
+
+.report-info-value {
+  font-weight: 500;
+  font-size: 14px;
+  word-break: break-word;
+  text-align: right;
+  max-width: 60%;
+}
