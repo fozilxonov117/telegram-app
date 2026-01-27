@@ -3,10 +3,13 @@ import { useTelegram } from './hooks/useTelegram'
 import { useAppStore } from './store/appStore'
 import Header from './components/Header'
 import StartScreen from './components/screens/StartScreen'
+import ReportTypeScreen from './components/screens/ReportTypeScreen'
 import ScopeScreen from './components/screens/ScopeScreen'
 import PeriodScreen from './components/screens/PeriodScreen'
-import QuarterScreen from './components/screens/QuarterScreen'
-import YearScreen from './components/screens/YearScreen'
+import DateSelectorScreen from './components/screens/DateSelectorScreen'
+import MonthSelectorScreen from './components/screens/MonthSelectorScreen'
+import QuarterSelectorScreen from './components/screens/QuarterSelectorScreen'
+import YearSelectorScreen from './components/screens/YearSelectorScreen'
 import GeneratingScreen from './components/screens/GeneratingScreen'
 import SuccessScreen from './components/screens/SuccessScreen'
 import UploadScreen from './components/screens/UploadScreen'
@@ -23,10 +26,31 @@ function App() {
     tg.ready()
     tg.expand()
     
-    // Apply theme colors
-    document.documentElement.style.setProperty('--tg-theme-bg-color', tg.themeParams.bg_color || '#ffffff')
-    document.documentElement.style.setProperty('--tg-theme-text-color', tg.themeParams.text_color || '#000000')
-    document.documentElement.style.setProperty('--tg-theme-button-color', tg.themeParams.button_color || '#2481cc')
+    // Apply Telegram theme
+    const applyTheme = () => {
+      const isDark = tg.colorScheme === 'dark'
+      document.body.classList.toggle('dark-theme', isDark)
+      
+      // Apply Telegram theme colors
+      if (tg.themeParams.bg_color) {
+        document.documentElement.style.setProperty('--tg-theme-bg-color', tg.themeParams.bg_color)
+      }
+      if (tg.themeParams.text_color) {
+        document.documentElement.style.setProperty('--tg-theme-text-color', tg.themeParams.text_color)
+      }
+      if (tg.themeParams.button_color) {
+        document.documentElement.style.setProperty('--tg-theme-button-color', tg.themeParams.button_color)
+        document.documentElement.style.setProperty('--primary-color', tg.themeParams.button_color)
+      }
+      if (tg.themeParams.secondary_bg_color) {
+        document.documentElement.style.setProperty('--tg-theme-secondary-bg-color', tg.themeParams.secondary_bg_color)
+      }
+    }
+    
+    applyTheme()
+    
+    // Listen for theme changes
+    tg.onEvent('themeChanged', applyTheme)
     
     // Setup back button
     if (history.length > 0) {
@@ -40,6 +64,7 @@ function App() {
     
     return () => {
       tg.BackButton.offClick(goBack)
+      tg.offEvent('themeChanged', applyTheme)
     }
   }, [tg, history, goBack])
 
@@ -47,14 +72,20 @@ function App() {
     switch (currentScreen) {
       case 'start':
         return <StartScreen />
+      case 'reportType':
+        return <ReportTypeScreen />
       case 'scope':
         return <ScopeScreen />
       case 'period':
         return <PeriodScreen />
-      case 'quarter':
-        return <QuarterScreen />
-      case 'year':
-        return <YearScreen />
+      case 'dateSelector':
+        return <DateSelectorScreen />
+      case 'monthSelector':
+        return <MonthSelectorScreen />
+      case 'quarterSelector':
+        return <QuarterSelectorScreen />
+      case 'yearSelector':
+        return <YearSelectorScreen />
       case 'generating':
         return <GeneratingScreen />
       case 'success':

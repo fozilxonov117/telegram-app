@@ -7,10 +7,15 @@ export const useAppStore = create((set) => ({
   
   // Report Data
   mode: null,
+  reportType: null,
   scope: null,
   scopeName: null,
   periodType: null,
   detailType: null,
+  selectedDate: null,
+  selectedMonth: null,
+  selectedQuarter: null,
+  selectedYear: null,
   selectedFile: null,
   generatedReport: null,
   
@@ -34,9 +39,19 @@ export const useAppStore = create((set) => ({
   
   setMode: (mode) => set({ mode }),
   
+  setReportType: (reportType) => set({ reportType }),
+  
   setScope: (scope, scopeName) => set({ scope, scopeName }),
   
   setPeriod: (periodType, detailType = null) => set({ periodType, detailType }),
+  
+  setSelectedDate: (date) => set({ selectedDate: date }),
+  
+  setSelectedMonth: (month) => set({ selectedMonth: month }),
+  
+  setSelectedQuarter: (quarter) => set({ selectedQuarter: quarter }),
+  
+  setSelectedYear: (year) => set({ selectedYear: year }),
   
   setSelectedFile: (file) => set({ selectedFile: file }),
   
@@ -46,10 +61,15 @@ export const useAppStore = create((set) => ({
     currentScreen: 'start',
     history: [],
     mode: null,
+    reportType: null,
     scope: null,
     scopeName: null,
     periodType: null,
     detailType: null,
+    selectedDate: null,
+    selectedMonth: null,
+    selectedQuarter: null,
+    selectedYear: null,
     selectedFile: null,
     generatedReport: null
   })

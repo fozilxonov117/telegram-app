@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { useAppStore } from '../../store/appStore'
 import { useTelegram } from '../../hooks/useTelegram'
 import { reportService } from '../../services/api'
+import { HiChartBar } from 'react-icons/hi'
 import './GeneratingScreen.css'
 
 function GeneratingScreen() {
@@ -48,7 +49,9 @@ function GeneratingScreen() {
     <div className="screen generating-screen">
       <div className="generating-animation">
         <div className="generating-spinner"></div>
-        <div className="generating-icon">📊</div>
+        <div className="generating-icon">
+          <HiChartBar size={48} />
+        </div>
       </div>
       <h2 className="screen-title">Генерация отчёта</h2>
       <p className="screen-subtitle">Пожалуйста, подождите...</p>

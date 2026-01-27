@@ -14,7 +14,8 @@ export default defineConfig({
       output: {
         manualChunks: {
           vendor: ['react', 'react-dom'],
-          telegram: ['@telegram-webapp/react']
+          store: ['zustand'],
+          http: ['axios']
         }
       }
     }

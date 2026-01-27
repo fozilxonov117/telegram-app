@@ -1,5 +1,6 @@
 import { useAppStore } from '../../store/appStore'
 import { useTelegram } from '../../hooks/useTelegram'
+import { HiChartBar, HiCalendar, HiChevronRight, HiTrendingUp } from 'react-icons/hi'
 import './PeriodScreen.css'
 
 function PeriodScreen() {
@@ -9,12 +10,18 @@ function PeriodScreen() {
   const handlePeriod = (periodType, detailType = null) => {
     hapticFeedback('light')
     
-    if (periodType === 'quarter' && !detailType) {
-      setScreen('quarter')
-    } else if (periodType === 'year' && !detailType) {
-      setScreen('year')
+    setPeriod(periodType, detailType)
+    
+    // Navigate to specific selector screen based on period type
+    if (periodType === 'date') {
+      setScreen('dateSelector')
+    } else if (periodType === 'month') {
+      setScreen('monthSelector')
+    } else if (periodType === 'quarter') {
+      setScreen('quarterSelector')
+    } else if (periodType === 'year') {
+      setScreen('yearSelector')
     } else {
-      setPeriod(periodType, detailType)
       setScreen('generating')
     }
   }
@@ -22,9 +29,13 @@ function PeriodScreen() {
   return (
     <div className="screen period-screen">
       <div className="breadcrumb">
-        <span className="badge-icon">📊</span>
+        <span className="badge-icon">
+          <HiChartBar size={18} />
+        </span>
         <span>Стандартный</span>
-        <span className="breadcrumb-sep">›</span>
+        <span className="breadcrumb-sep">
+          <HiChevronRight size={16} />
+        </span>
         <span>{scopeName}</span>
       </div>
       
@@ -32,39 +43,55 @@ function PeriodScreen() {
       
       <div className="option-cards">
         <button className="option-card" onClick={() => handlePeriod('date')}>
-          <div className="option-icon">📅</div>
+          <div className="option-icon">
+            <HiCalendar size={28} />
+          </div>
           <div className="option-content">
             <h3>Дата</h3>
             <p>Отчёт за конкретную дату</p>
           </div>
-          <div className="option-arrow">›</div>
+          <div className="option-arrow">
+            <HiChevronRight size={20} />
+          </div>
         </button>
         
         <button className="option-card" onClick={() => handlePeriod('month')}>
-          <div className="option-icon">🗓</div>
+          <div className="option-icon">
+            <HiCalendar size={28} />
+          </div>
           <div className="option-content">
             <h3>Месяц</h3>
             <p>Месячный отчёт</p>
           </div>
-          <div className="option-arrow">›</div>
+          <div className="option-arrow">
+            <HiChevronRight size={20} />
+          </div>
         </button>
         
         <button className="option-card" onClick={() => handlePeriod('quarter')}>
-          <div className="option-icon">📆</div>
+          <div className="option-icon">
+            <HiCalendar size={28} />
+          </div>
           <div className="option-content">
             <h3>Квартальный</h3>
             <p>Отчёт по кварталам</p>
           </div>
-          <div className="option-arrow">›</div>
+          <div className="option-arrow">
+            <HiChevronRight size={20} />
+          </div>
         </button>
         
         <button className="option-card" onClick={() => handlePeriod('year')}>
-          <div className="option-icon">📈</div>
+          <div className="option-icon">
+            <HiTrendingUp size={28} />
+          </div>
           <div className="option-content">
             <h3>Годовой</h3>
             <p>Годовой отчёт</p>
           </div>
-          <div className="option-arrow">›</div>
+          <div className="option-arrow">
+            <HiChevronRight size={20} />
+          </div>
         </button>
       </div>
     </div>

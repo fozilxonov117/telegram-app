@@ -1,0 +1,43 @@
+.year-selector-screen {
+  padding: 20px;
+}
+
+.years-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin: 24px 0;
+}
+
+.year-card {
+  background: var(--bg-primary);
+  border: 2px solid var(--border-color);
+  border-radius: 16px;
+  padding: 28px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  transition: all 0.2s;
+  color: var(--text-primary);
+}
+
+.year-card:active {
+  transform: scale(0.95);
+}
+
+.year-card:hover {
+  background: var(--bg-hover);
+}
+
+.year-card.selected {
+  background: var(--primary-color);
+  border-color: var(--primary-color);
+  color: white;
+}
+
+.year-value {
+  font-size: 24px;
+  font-weight: 700;
+}

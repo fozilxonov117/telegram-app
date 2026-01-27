@@ -1,6 +1,7 @@
 import { useAppStore } from '../../store/appStore'
 import { useTelegram } from '../../hooks/useTelegram'
 import { reportService } from '../../services/api'
+import { HiCheckCircle, HiDownload, HiCalendar, HiOfficeBuilding } from 'react-icons/hi'
 import './SuccessScreen.css'
 
 function SuccessScreen() {
@@ -9,10 +10,10 @@ function SuccessScreen() {
   
   const formatPeriodType = (type) => {
     const formats = {
-      date: '📅 Дата',
-      month: '🗓 Месяц',
-      quarter: '📆 Квартал',
-      year: '📈 Год'
+      date: 'Дата',
+      month: 'Месяц',
+      quarter: 'Квартал',
+      year: 'Год'
     }
     return formats[type] || type
   }
@@ -43,10 +44,7 @@ function SuccessScreen() {
     <div className="screen success-screen">
       <div className="success-animation">
         <div className="success-checkmark">
-          <svg width="80" height="80" viewBox="0 0 80 80">
-            <circle cx="40" cy="40" r="35" fill="#4CAF50"/>
-            <path d="M25 40 L35 50 L55 30" stroke="white" strokeWidth="4" fill="none" strokeLinecap="round" strokeLinejoin="round"/>
-          </svg>
+          <HiCheckCircle size={80} color="#4CAF50" />
         </div>
       </div>
       
@@ -59,22 +57,31 @@ function SuccessScreen() {
           <span className="report-info-value">{generatedReport.filename}</span>
         </div>
         <div className="report-info-item">
-          <span className="report-info-label">Объект:</span>
+          <span className="report-info-label">
+            <HiOfficeBuilding size={16} style={{marginRight: '4px'}} />
+            Объект:
+          </span>
           <span className="report-info-value">{scopeName}</span>
         </div>
         <div className="report-info-item">
-          <span className="report-info-label">Период:</span>
+          <span className="report-info-label">
+            <HiCalendar size={16} style={{marginRight: '4px'}} />
+            Период:
+          </span>
           <span className="report-info-value">{formatPeriodType(periodType)}</span>
         </div>
         <div className="report-info-item">
           <span className="report-info-label">Статус:</span>
-          <span className="report-info-value">✅ Готов</span>
+          <span className="report-info-value">
+            <HiCheckCircle size={16} color="#4CAF50" style={{marginRight: '4px'}} />
+            Готов
+          </span>
         </div>
       </div>
       
       <div className="action-buttons">
         <button className="btn btn-primary btn-large" onClick={handleDownload}>
-          <span className="btn-icon">📥</span>
+          <HiDownload size={20} />
           Скачать отчёт
         </button>
         <button className="btn btn-secondary" onClick={handleNewReport}>

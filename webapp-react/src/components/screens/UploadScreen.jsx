@@ -2,6 +2,7 @@ import { useState, useRef } from 'react'
 import { useAppStore } from '../../store/appStore'
 import { useTelegram } from '../../hooks/useTelegram'
 import { reportService } from '../../services/api'
+import { HiUpload, HiDocumentText, HiX } from 'react-icons/hi'
 import './UploadScreen.css'
 
 function UploadScreen() {
@@ -81,7 +82,9 @@ function UploadScreen() {
   return (
     <div className="screen upload-screen">
       <div className="upload-section">
-        <div className="upload-icon">📤</div>
+        <div className="upload-icon">
+          <HiUpload size={64} />
+        </div>
         <h2 className="screen-title">Загрузка отчёта</h2>
         <p className="screen-subtitle">Выберите XLSX файл для загрузки</p>
         
@@ -95,7 +98,9 @@ function UploadScreen() {
               onChange={handleFileSelect}
             />
             <div className="upload-placeholder">
-              <div className="upload-placeholder-icon">📄</div>
+              <div className="upload-placeholder-icon">
+                <HiDocumentText size={48} />
+              </div>
               <p>Нажмите для выбора файла</p>
               <span className="upload-hint">Поддерживаются: XLSX, XLS</span>
             </div>
@@ -103,12 +108,16 @@ function UploadScreen() {
         ) : (
           <>
             <div className="uploaded-file-info">
-              <div className="file-info-icon">📄</div>
+              <div className="file-info-icon">
+                <HiDocumentText size={32} />
+              </div>
               <div className="file-info-content">
                 <div className="file-info-name">{selectedFile.name}</div>
                 <div className="file-info-size">{formatFileSize(selectedFile.size)}</div>
               </div>
-              <button className="file-remove-btn" onClick={handleRemoveFile}>✕</button>
+              <button className="file-remove-btn" onClick={handleRemoveFile}>
+                <HiX size={18} />
+              </button>
             </div>
             
             <button 
@@ -116,7 +125,7 @@ function UploadScreen() {
               onClick={handleUpload}
               disabled={uploading}
             >
-              <span className="btn-icon">📤</span>
+              <HiUpload size={20} />
               {uploading ? 'Загрузка...' : 'Загрузить файл'}
             </button>
           </>
