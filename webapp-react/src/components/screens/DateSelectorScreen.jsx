@@ -1,15 +1,16 @@
 import { useState } from 'react'
 import { useAppStore } from '../../store/appStore'
 import { useTelegram } from '../../hooks/useTelegram'
-import { HiCalendar, HiChevronLeft, HiChevronRight } from 'react-icons/hi'
+import { HiCalendar, HiChevronLeft, HiChevronRight, HiArrowRight } from 'react-icons/hi'
 import './DateSelectorScreen.css'
 
 function DateSelectorScreen() {
-  const { setScreen, setSelectedDate, periodType } = useAppStore()
+  const { setScreen, setSelectedDate } = useAppStore()
   const { hapticFeedback } = useTelegram()
   
   const [currentDate, setCurrentDate] = useState(new Date())
-  const [selectedDay, setSelectedDay] = useState(null)
+  const [startDate, setStartDate] = useState(null)
+  const [endDate, setEndDate] = useState(null)
   
   const months = [
     'Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь',
@@ -36,17 +37,55 @@ function DateSelectorScreen() {
   }
   
   const handleSelectDay = (day) => {
-    setSelectedDay(day)
+    const selectedFullDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), day)
+    
+    if (!startDate || (startDate && endDate)) {
+      // Start new selection
+      setStartDate(selectedFullDate)
+      setEndDate(null)
+    } else if (startDate && !endDate) {
+      // Select end date
+      if (selectedFullDate < startDate) {
+        setEndDate(startDate)
+        setStartDate(selectedFullDate)
+      } else {
+        setEndDate(selectedFullDate)
+      }
+    }
     hapticFeedback('medium')
   }
   
+  const formatDate = (date) => {
+    return `${String(date.getDate()).padStart(2, '0')}.${String(date.getMonth() + 1).padStart(2, '0')}.${date.getFullYear()}`
+  }
+  
   const handleConfirm = () => {
-    if (selectedDay) {
-      const dateStr = `${selectedDay}.${String(currentDate.getMonth() + 1).padStart(2, '0')}.${currentDate.getFullYear()}`
-      setSelectedDate(dateStr)
+    if (startDate && endDate) {
+      const dateRange = {
+        startDate: formatDate(startDate),
+        endDate: formatDate(endDate)
+      }
+      setSelectedDate(dateRange)
       hapticFeedback('success')
       setScreen('generating')
     }
+  }
+  
+  const isDateInRange = (day) => {
+    if (!startDate || !day) return false
+    const checkDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), day)
+    
+    if (endDate) {
+      return checkDate >= startDate && checkDate <= endDate
+    }
+    return false
+  }
+  
+  const isDateSelected = (day) => {
+    if (!day) return false
+    const checkDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), day)
+    return (startDate && checkDate.getTime() === startDate.getTime()) || 
+           (endDate && checkDate.getTime() === endDate.getTime())
   }
   
   const { firstDay, daysInMonth } = getDaysInMonth(currentDate)
@@ -64,8 +103,26 @@ function DateSelectorScreen() {
   
   return (
     <div className="screen date-selector-screen">
-      <h2 className="screen-title">Выберите дату</h2>
-      <p className="screen-subtitle">Отчёт за конкретную дату</p>
+      <h2 className="screen-title">Выберите период</h2>
+      <p className="screen-subtitle">Отчёт за период (от и до)</p>
+      
+      {startDate && (
+        <div className="date-range-display">
+          <div className="date-range-item">
+            <span className="date-label">От:</span>
+            <span className="date-value">{formatDate(startDate)}</span>
+          </div>
+          {endDate && (
+            <>
+              <HiArrowRight size={20} className="date-arrow" />
+              <div className="date-range-item">
+                <span className="date-label">До:</span>
+                <span className="date-value">{formatDate(endDate)}</span>
+              </div>
+            </>
+          )}
+        </div>
+      )}
       
       <div className="calendar">
         <div className="calendar-header">
@@ -95,7 +152,7 @@ function DateSelectorScreen() {
           {days.map((day, index) => (
             <div
               key={index}
-              className={`calendar-day ${!day ? 'empty' : ''} ${day === selectedDay ? 'selected' : ''}`}
+              className={`calendar-day ${!day ? 'empty' : ''} ${isDateSelected(day) ? 'selected' : ''} ${isDateInRange(day) ? 'in-range' : ''}`}
               onClick={() => day && handleSelectDay(day)}
             >
               {day}
@@ -107,7 +164,7 @@ function DateSelectorScreen() {
       <button 
         className="btn btn-primary btn-large" 
         onClick={handleConfirm}
-        disabled={!selectedDay}
+        disabled={!startDate || !endDate}
       >
         Продолжить
       </button>

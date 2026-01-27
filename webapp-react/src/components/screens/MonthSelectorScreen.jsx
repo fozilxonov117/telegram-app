@@ -1,15 +1,16 @@
 import { useState } from 'react'
 import { useAppStore } from '../../store/appStore'
 import { useTelegram } from '../../hooks/useTelegram'
-import { HiCalendar } from 'react-icons/hi'
+import { HiCalendar, HiChevronLeft, HiChevronRight } from 'react-icons/hi'
 import './MonthSelectorScreen.css'
 
 function MonthSelectorScreen() {
   const { setScreen, setSelectedMonth } = useAppStore()
   const { hapticFeedback } = useTelegram()
   
+  const currentYear = new Date().getFullYear()
   const [selectedMonthIndex, setSelectedMonthIndex] = useState(null)
-  const [selectedYear, setSelectedYear] = useState(new Date().getFullYear())
+  const [selectedYear, setSelectedYear] = useState(currentYear)
   
   const months = [
     { name: 'Январь', index: 1 },
@@ -26,11 +27,19 @@ function MonthSelectorScreen() {
     { name: 'Декабрь', index: 12 }
   ]
   
-  const years = Array.from({ length: 10 }, (_, i) => new Date().getFullYear() - i)
-  
   const handleSelectMonth = (index) => {
     setSelectedMonthIndex(index)
     hapticFeedback('medium')
+  }
+  
+  const handlePrevYear = () => {
+    setSelectedYear(selectedYear - 1)
+    hapticFeedback('light')
+  }
+  
+  const handleNextYear = () => {
+    setSelectedYear(selectedYear + 1)
+    hapticFeedback('light')
   }
   
   const handleConfirm = () => {
@@ -52,19 +61,17 @@ function MonthSelectorScreen() {
       <p className="screen-subtitle">Отчёт за выбранный месяц</p>
       
       <div className="year-selector">
-        <label>Год:</label>
-        <select 
-          value={selectedYear} 
-          onChange={(e) => {
-            setSelectedYear(Number(e.target.value))
-            hapticFeedback('light')
-          }}
-          className="year-select"
-        >
-          {years.map(year => (
-            <option key={year} value={year}>{year}</option>
-          ))}
-        </select>
+        <button className="year-nav-btn" onClick={handlePrevYear}>
+          <HiChevronLeft size={24} />
+        </button>
+        <div className="year-display">
+          <HiCalendar size={20} />
+          <span className="year-value">{selectedYear}</span>
+          {selectedYear === currentYear && <span className="current-badge">Текущий</span>}
+        </div>
+        <button className="year-nav-btn" onClick={handleNextYear}>
+          <HiChevronRight size={24} />
+        </button>
       </div>
       
       <div className="months-grid">

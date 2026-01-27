@@ -2,25 +2,70 @@
   padding: 20px;
 }
 
+.year-selector-wrapper {
+  background: var(--bg-primary);
+  border-radius: 16px;
+  padding: 20px;
+  margin: 24px 0;
+  border: 1px solid var(--border-color);
+}
+
+.year-navigation {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.nav-btn {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--text-primary);
+  transition: all 0.2s;
+}
+
+.nav-btn:active {
+  transform: scale(0.95);
+  background: var(--bg-hover);
+}
+
+.year-range {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
 .years-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 12px;
-  margin: 24px 0;
 }
 
 .year-card {
-  background: var(--bg-primary);
-  border: 2px solid var(--border-color);
-  border-radius: 16px;
-  padding: 28px 20px;
+  background: var(--bg-secondary);
+  border: 2px solid transparent;
+  border-radius: 12px;
+  padding: 20px 12px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 12px;
   cursor: pointer;
   transition: all 0.2s;
   color: var(--text-primary);
+  position: relative;
+  overflow: hidden;
 }
 
 .year-card:active {
@@ -29,6 +74,12 @@
 
 .year-card:hover {
   background: var(--bg-hover);
+  border-color: var(--border-color);
+}
+
+.year-card.current {
+  border-color: var(--primary-color);
+  background: var(--primary-light);
 }
 
 .year-card.selected {
@@ -37,7 +88,29 @@
   color: white;
 }
 
+.year-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
 .year-value {
-  font-size: 24px;
+  font-size: 20px;
   font-weight: 700;
+}
+
+.year-badge {
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  padding: 2px 8px;
+  border-radius: 4px;
+  background: var(--primary-color);
+  color: white;
+  margin-top: 4px;
+}
+
+.year-card.selected .year-badge {
+  background: rgba(255, 255, 255, 0.3);
 }
